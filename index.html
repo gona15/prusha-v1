@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArmanLeads - Double Bookings Without Stress</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1d1d1f;
+            background: #fafafa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #667eea;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Section Spacing */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-alt {
+            background: white;
+        }
+
+        /* Problem Section */
+        .problem-section h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 24px;
+            color: #1d1d1f;
+        }
+
+        .problem-section .subtitle {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #86868b;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .problem-card {
+            background: #f5f5f7;
+            padding: 32px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .problem-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #d32f2f;
+        }
+
+        .closing-statement {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            font-style: italic;
+        }
+
+        /* Urgency Section */
+        .urgency-section {
+            background: linear-gradient(135deg, #ffebee, #fce4ec);
+            border-left: 6px solid #d32f2f;
+        }
+
+        .urgency-title {
+            color: #d32f2f;
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #d32f2f;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* About Section */
+        .about-section h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            color: #424245;
+        }
+
+        .bio-section {
+            background: #f5f5f7;
+            padding: 60px 40px;
+            border-radius: 24px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .bio-section h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .benefit-card {
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid #667eea;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        /* Fit Section */
+        .fit-section {
+            background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
+        }
+
+        .fit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .fit-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+        }
+
+        .fit-card.good-fit {
+            border-top: 4px solid #4caf50;
+        }
+
+        .fit-card.bad-fit {
+            border-top: 4px solid #f44336;
+        }
+
+        .fit-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .good-fit h3 {
+            color: #4caf50;
+        }
+
+        .bad-fit h3 {
+            color: #f44336;
+        }
+
+        .fit-list {
+            list-style: none;
+        }
+
+        .fit-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .good-fit .fit-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .bad-fit .fit-list li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        /* System Section */
+        .system-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .step-card {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 32px;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .step-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Scarcity Banner */
+        .scarcity-banner {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin: 60px 0;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(255,107,107,0.3);
+        }
+
+        .scarcity-banner h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* FAQ Section */
+        .faq-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 24px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+
+        .faq-answer {
+            padding: 0 24px 24px;
+            line-height: 1.7;
+            color: #424245;
+        }
+
+        /* Guarantee Section */
+        .guarantee-section {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guarantee-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="30" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .guarantee-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .guarantee-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .guarantee-features {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .guarantee-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .guarantee-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: #fafafa;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.1);
+        }
+
+        .pricing-card h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        .roi-highlight {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .roi-highlight .amount {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .cta-card {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Special Offer */
+        .special-offer {
+            background: linear-gradient(135deg, #ff9500, #ff8c00);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .offer-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .offer-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1d1d1f;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #86868b;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .pricing-grid,
+            .cta-grid,
+            .fit-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .guarantee-features {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Smooth Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Double Bookings Without Stress Or Guesswork</h1>
+                    <p>I handle the marketing chaos so you can focus on dentistry — while your chairs stay consistently filled.</p>
+                    <div class="cta-buttons">
+                        <a href="#audit-form" class="btn btn-primary">Get My Free Marketing Audit Now</a>
+                        <a href="#call-booking" class="btn btn-secondary">Book A Quick Call — You Decide When</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Happy Dentist">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2>Your Practice Deserves Better Than Empty Chairs</h2>
+            <p class="subtitle">Does this sound familiar?</p>
+            
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <h3>💸 Slow weeks that kill cashflow</h3>
+                    <p>Watching your overhead pile up while appointment slots stay empty, wondering if you'll make enough to cover expenses this month.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>🚗 Competitors' parking lots full while yours empties</h3>
+                    <p>Driving past other dental offices and seeing packed parking lots while your practice struggles to fill appointments.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>📢 Word-of-mouth drying up</h3>
+                    <p>The referrals that once kept you busy have slowed to a trickle, and you're not sure how to replace them.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>🌙 Working late on "business stuff" instead of being home</h3>
+                    <p>Staying after hours trying to figure out marketing, manage your website, or handle admin work instead of enjoying dinner with your family.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>📉 Insurance cuts shrinking margins</h3>
+                    <p>Reimbursement rates keep dropping while your costs stay the same, making every appointment less profitable than before.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>👥 Patients who don't show up or discount-shop</h3>
+                    <p>Dealing with no-shows, last-minute cancellations, and patients who only care about finding the cheapest option.</p>
+                </div>
+            </div>
+            
+            <div class="closing-statement">
+                "You didn't spend years in dental school to worry about empty appointment books."
+            </div>
+        </div>
+    </section>
+
+    <!-- Urgency Section -->
+    <section class="section urgency-section">
+        <div class="container">
+            <h2 class="urgency-title">The Hidden Cost of Doing Nothing</h2>
+            
+            <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px;">
+                Every month, people in your area search "dentist near me" over 500,000 times nationally. In Des Moines alone, that's roughly 310+ people searching daily for dental care.
+            </p>
+            
+            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 30px; color: #d32f2f;">
+                Here's what's happening while you're not visible online:
+            </h3>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">310+</span>
+                    <span class="stat-label">People search "dentist near me" daily in your area</span>
+                </div>
+                
+                <div class="stat-card">
+                    <span class="stat-number">$300-800</span>
+                    <span class="stat-label">Average new patient value per visit</span>
+                </div>
+                
+                <div class="stat-card">
+                    <span class="stat-number">15-25</span>
+                    <span class="stat-label">Monthly missed patients</span>
+                </div>
+                
+                <div class="stat-card">
+                    <span class="stat-number">$4,500-$20,000+</span>
+                    <span class="stat-label">Monthly lost revenue</span>
+                </div>
+                
+                <div class="stat-card">
+                    <span class="stat-number">$54,000-$240,000+</span>
+                    <span class="stat-label">Annual opportunity cost</span>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 40px; border-radius: 16px; margin: 40px 0; text-align: center;">
+                <p style="font-size: 1.3rem; font-weight: 600; color: #1d1d1f; margin-bottom: 20px;">
+                    The simple truth: When someone has a toothache at 2 AM or needs a cleaning, they Google "dentist near me."
+                </p>
+                <p style="font-size: 1.3rem; font-weight: 600; color: #d32f2f;">
+                    If you're not showing up, they're booking with whoever is.
+                </p>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: #666; font-style: italic; text-align: center; margin-bottom: 20px;">
+                Based on national search data scaled to local market size. Results vary by location.
+            </p>
+            
+            <div style="text-align: center; font-size: 1.4rem; font-weight: 700; color: #1d1d1f;">
+                Every day you're invisible online, families in Des Moines are choosing other dentists. They never even knew you existed.
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <p style="text-align: center; color: #86868b; margin-bottom: 40px; font-size: 1.1rem;">
+                Over 40% of dentists report feeling overwhelmed by business responsibilities outside of patient care
+            </p>
+            
+            <h2>I Turn Empty Chairs Into A Full Schedule Predictably.</h2>
+            
+            <div class="about-content">
+                <p>You didn't spend years in dental school to become a marketing expert. You wanted to help people, not worry about Google rankings.</p>
+                
+                <p>Here's the thing: The best dentists aren't struggling because they're bad at dentistry. They're struggling because patient acquisition has become more complicated than a root canal.</p>
+                
+                <p>As a medical student, I understand patient psychology. As a marketer, I know exactly how to get them to choose YOU first.</p>
+                
+                <p>The transformation is simple: Instead of wondering where your next patient will come from, you'll be wondering how to fit them all in.</p>
+                
+                <p style="font-weight: 700; font-size: 1.3rem; color: #667eea;">You shouldn't have to choose between being an exceptional dentist and running a profitable practice.</p>
+                
+                <p style="font-size: 1.2rem;">That's exactly the problem I solve. I handle the marketing so you can focus on what you're truly exceptional at.</p>
+            </div>
+            
+            <div class="bio-section">
+                <h3>I'm Arman — a medical student + digital marketer from Slemani.</h3>
+                <p style="font-size: 1.1rem; line-height: 1.7;">
+                    I combine patient psychology and targeted local ads to bring steady, high-value patients to a few select practices. I only accept 5 partners at a time so you get my full attention.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 3rem; font-weight: 800; margin-bottom: 60px;">What You Get When We Work Together</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>Predictable Income</h3>
+                    <p>Stop wondering if next month will cover your overhead. You'll know exactly how many new patients are coming because I track every lead, call, and booking. No more financial anxiety.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <h3>Evenings at Home</h3>
+                    <p>No more staying late to manage ads or fix your website. I handle everything while you're with your family. You'll actually use your evenings for what matters most.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <h3>Only Serious Patients</h3>
+                    <p>I don't just bring you more people - I bring you the RIGHT people. Patients who value quality care, show up for appointments, and don't just price shop. Quality over quantity, always.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fit Section -->
+    <section class="section fit-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 60px;">Who It Works For vs Who It Doesn't</h2>
+            
+            <div class="fit-grid">
+                <div class="fit-card good-fit">
+                    <h3>Great Fit For You If:</h3>
+                    <ul class="fit-list">
+                        <li>Have $1500+ monthly marketing budget</li>
+                        <li>Can handle 15+ clients monthly</li>
+                        <li>Want a long term partnership</li>
+                    </ul>
+                </div>
+                
+                <div class="fit-card bad-fit">
+                    <h3>Not a Good Fit For You If:</h3>
+                    <ul class="fit-list">
+                        <li>Your marketing budget is under $1500</li>
+                        <li>Need results this week</li>
+                        <li>Want to manage the ads yourself</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Section -->
+    <section class="section section-alt">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 3rem; font-weight: 800; margin-bottom: 20px;">The System That Fills Your Schedule</h2>
+            <p style="text-align: center; font-size: 1.3rem; color: #86868b; margin-bottom: 60px;">Here's exactly what I do (in stupid-simple terms):</p>
+            
+            <div class="system-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Capture Attention</h3>
+                    <p>I put your practice in front of people actively searching "dentist near me" and "tooth pain Des Moines." When they're ready to book, you're the first name they see. No more hoping they'll find you.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Build Instant Trust</h3>
+                    <p>I create landing pages that answer their exact questions and show why you're their best choice. Think of it as your best receptionist working 24/7, even at 2 AM when toothaches strike.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Convert Into Appointments</h3>
+                    <p>I set up automated follow-ups that turn website visitors into actual appointments. Text reminders, email sequences, and booking confirmations happen automatically. No extra work for your staff.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Track Everything</h3>
+                    <p>Every month you get a simple report: "We brought you 18 new patients this month for $1,200 in ad spend." Clear numbers, zero confusion about what's working.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scarcity Banner -->
+    <div class="scarcity-banner">
+        <div class="container">
+            <h3>I only work with 5 Dentists!</h3>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <div class="container">
+            <h2>What Skeptical Owners Ask</h2>
+            <p style="text-align: center; color: #86868b; margin-bottom: 60px; font-size: 1.1rem;">The tough questions you're probably thinking</p>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Why should I trust a medical student with my marketing budget?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Because I have to prove results every month or you fire me. No contracts, 30-day guarantee, and you only pay for what works. Plus my medical training means I approach problems systematically, not with guesswork.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What happens when medical school gets demanding?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    I deliberately limit clients to 5 total, so each gets proper attention. If my schedule ever becomes an issue, I'll transition you to a vetted partner at no extra cost. But this hasn't happened yet.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Where are your client testimonials and case studies?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    I'm building my first US client base, which is why you get founding client pricing (50% off). You'll get the same premium service at startup prices, plus your results will be featured as a case study.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you require long contracts like other agencies?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Never. Month-to-month only. Good marketing should speak for itself—I shouldn't need a contract to keep you as a client. If I'm not delivering results, fire me.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How quickly will I see more bookings?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Most clients see increased leads within 2-3 weeks. Significant revenue impact typically happens at 60-90 days as we optimize the entire funnel and improve conversion rates.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What if you can't help my specific type of business?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    The fundamentals are universal: attract attention, build trust, make compelling offers, follow up consistently. Whether you're a dentist, chiropractor, or dog groomer, people need to know, like, and trust you before they buy.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee Section -->
+    <section class="section guarantee-section">
+        <div class="container">
+            <div class="guarantee-content">
+                <h2 class="guarantee-title">Zero-Risk Investment</h2>
+                
+                <p style="font-size: 1.3rem; line-height: 1.8; max-width: 800px; margin: 0 auto 20px;">
+                    <strong>Month-to-month billing.</strong> No long-term contracts. Cancel anytime. <strong>Milestone-based payments.</strong> Pay only after deliverables are completed. <strong>30-day "no movement" guarantee.</strong> If you don't see increased leads or bookings within 30 days (with your cooperation), get a full refund.
+                </p>
+                
+                <div class="guarantee-features">
+                    <div class="guarantee-feature">
+                        <div class="guarantee-icon">📋</div>
+                        <span>No contracts</span>
+                    </div>
+                    <div class="guarantee-feature">
+                        <div class="guarantee-icon">💰</div>
+                        <span>Milestone billing</span>
+                    </div>
+                    <div class="guarantee-feature">
+                        <div class="guarantee-icon">🔄</div>
+                        <span>30-day refund</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing-section">
+        <div class="container">
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>What It Costs (and What You'll Make Back)</h3>
+                    
+                    <div class="price-item">
+                        <span><strong>Setup:</strong></span>
+                        <span><strong>$597</strong> (one-time)</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span><strong>Monthly:</strong></span>
+                        <span><strong>$797/month</strong></span>
+                    </div>
+                    
+                    <div style="margin: 24px 0; padding: 16px 0; border-top: 2px solid #667eea; border-bottom: 2px solid #667eea;">
+                        <div class="price-item">
+                            <span>No contracts</span>
+                            <span>✓</span>
+                        </div>
+                        <div class="price-item">
+                            <span>Cancel anytime</span>
+                            <span>✓</span>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin: 24px 0 16px; font-size: 1.3rem; color: #667eea;">Your Total Monthly Cost:</h4>
+                    
+                    <div class="price-item">
+                        <span>My fee:</span>
+                        <span>$797</span>
+                    </div>
+                    
+                    <div class="price-item">
+                        <span>Ad spending:</span>
+                        <span>$800-2,000</span>
+                    </div>
+                    
+                    <div class="price-item" style="border-top: 2px solid #eee; margin-top: 12px; padding-top: 16px; font-weight: 700; font-size: 1.1rem;">
+                        <span>Total:</span>
+                        <span>$1,597-2,797/month</span>
+                    </div>
+                    
+                    <div class="roi-highlight">
+                        <div style="margin-bottom: 12px; font-size: 1.2rem; font-weight: 600;">What you should get back:</div>
+                        <div class="amount">$5,000-15,000+ monthly</div>
+                        <div style="margin-top: 16px; font-size: 1rem; opacity: 0.9;">
+                            <strong>Real profit:</strong> If I bring you 12 new patients at $400 average = $4,800. After paying everything, you pocket $2,000+ extra.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>See Why Des Moines Patients Aren't Finding You</h3>
+                    
+                    <p style="margin-bottom: 30px; font-size: 1.1rem; line-height: 1.6;">What I'll send you:</p>
+                    
+                    <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
+                        <li style="padding: 12px 0; padding-left: 24px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #667eea;">✓</span>
+                            You'll see which competitors patients find before you
+                        </li>
+                        <li style="padding: 12px 0; padding-left: 24px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #667eea;">✓</span>
+                            The exact words people type when looking for dentists
+                        </li>
+                        <li style="padding: 12px 0; padding-left: 24px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #667eea;">✓</span>
+                            What your website should say (but probably doesn't)
+                        </li>
+                        <li style="padding: 12px 0; padding-left: 24px; position: relative;">
+                            <span style="position: absolute; left: 0; color: #667eea;">✓</span>
+                            Step-by-step fix to put your clinic ahead — fast
+                        </li>
+                    </ul>
+                    
+                    <a href="#audit-form" class="btn btn-primary" style="width: 100%; margin-bottom: 20px;">Get My Free Analysis</a>
+                    
+                    <p style="text-align: center; color: #86868b; font-size: 0.9rem;">I'll have this in your inbox within 12 hours. No calls, no hassle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offer Section -->
+    <section class="section special-offer">
+        <div class="container">
+            <div class="offer-badge">Founding Client Special</div>
+            <h2 class="offer-title">Be One Of My 5 Clients</h2>
+            <p class="offer-subtitle">50% off the first month's management fee</p>
+            <a href="#audit-form" class="btn btn-primary" style="background: white; color: #ff9500; font-size: 1.2rem; padding: 20px 40px;">Get 50% Off Now</a>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="section final-cta">
+        <div class="container">
+            <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 40px;">Ready to See What's Really Happening in Des Moines?</h2>
+            
+            <div class="cta-grid">
+                <div class="cta-card" id="audit-form">
+                    <h3 style="font-size: 2rem; margin-bottom: 30px;">Get My Free Audit NOW</h3>
+                    
+                    <form style="text-align: left;">
+                        <div class="form-group">
+                            <label>Your Name:</label>
+                            <input type="text" placeholder="Dr. John Smith" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Practice Name:</label>
+                            <input type="text" placeholder="Smith Family Dentistry" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" placeholder="doctor@practice.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Website (if you have one):</label>
+                            <input type="url" placeholder="www.yourpractice.com (optional)">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px; background: #667eea; color: white; font-size: 1.1rem;">Send Me My Analysis</button>
+                    </form>
+                    
+                    <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+                        I'll have this in your inbox within 12 hours. No calls, no hassle.
+                    </p>
+                </div>
+                
+                <div class="cta-card" id="call-booking">
+                    <h3 style="font-size: 2rem; margin-bottom: 30px;">Rather Talk It Through?</h3>
+                    
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 40px;">
+                        I get it - sometimes you want to ask questions first. Pick whatever time works for your schedule and we'll chat for 15 minutes.
+                    </p>
+                    
+                    <a href="#" class="btn btn-primary" style="width: 100%; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4); font-size: 1.1rem;">Find a Time That Works for You</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <strong>ArmanLeads</strong><br>
+                    hello@armanleads.com<br>
+                    Sulaymaniyah, Kurdistan
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                
+                <div>
+                    © 2025 ArmanLeads. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', function() {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.parentNode;
+                const answer = faqItem.querySelector('.faq-answer');
+                const isOpen = faqItem.classList.contains('open');
+                
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('open');
+                    item.querySelector('.faq-answer').style.display = 'none';
+                    item.querySelector('.faq-question span:last-child').textContent = '+';
+                });
+                
+                // Toggle current item
+                if (!isOpen) {
+                    faqItem.classList.add('open');
+                    answer.style.display = 'block';
+                    this.querySelector('span:last-child').textContent = '−';
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically send the form data to your server
+            alert('Thank you! I\'ll send your analysis within 12 hours.');
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animations
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Add floating effect to cards on hover
+        document.querySelectorAll('.problem-card, .benefit-card, .step-card, .fit-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            hero.style.backgroundPosition = 'center ' + rate + 'px';
+        });
+
+        // Dynamic typing effect for hero headline
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', function() {
+            const heroTitle = document.querySelector('.hero h1');
+            const originalText = heroTitle.textContent;
+            typeWriter(heroTitle, originalText, 30);
+        });
+
+        // Add pulse animation to CTA buttons
+        setInterval(function() {
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.style.animation = 'pulse 2s infinite';
+            });
+        }, 5000);
+
+        // Add CSS for pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3); }
+                50% { box-shadow: 0 12px 48px rgba(102, 126, 234, 0.5); }
+                100% { box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3); }
+            }
+            
+            .faq-item.open .faq-answer {
+                display: block !important;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Mouse follow effect for hero section
+        document.querySelector('.hero').addEventListener('mousemove', function(e) {
+            const hero = this;
+            const rect = hero.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const moveX = (x / rect.width - 0.5) * 20;
+            const moveY = (y / rect.height - 0.5) * 20;
+            
+            hero.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
+        });
+    </script>
+</body>
+</html>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Double Bookings Without Stress Or Guesswork</h1>
+                    <p>I handle the marketing chaos so you can focus on dentistry — while your chairs stay consistently filled.</p>
+                    <div class="cta-buttons">
+                        <a href="#audit-form" class="btn btn-primary">Get My Free Marketing Audit Now</a>
+                        <a href="#call-booking" class="btn btn-secondary">Book A Quick Call — You Decide When</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCADIAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAr4A/4KK/tCar8Ev2e7XUvDuoXWn+K/FepWug6HqFrJsngW5c/aJ7eRTwyxokjZBww2nIBH0t8dviJp/wAM/hN4s8b6gzfYfBvhzVdd1JwMkWthbSTvtHclUO0DuTivy+8GeKL3x18K/BXjjUYpNP1Pxh4b03XZ7Rup7W8nhinjcr3VXZSfcGgD9//hj430jx78PfCviHTLyO+sr7wzousR3UJ3RTx3FskgkRh3VgQR6V0Ffm5/wRS/bF+JH7Qej/Ff4deLNYh174lfCGb+z2s9Ta0vINavXm36TqIgKjyJJNzWnmE+W0j+Xvf5g8J/sW/GvwV+zX8NPA1x4PvNC8feHdPGqeE/FEetabaPYaxpN0bq0SdJsGObyXxGTvYmN8BSMAhdvH2AffVFfn9+xZ/wUf8ADXij9nr4o/Er4p6dputnwFrXw6udI8PaQNa1PRb+eeOO8u4JNr3QdXktnCiIOyRMd6EqCRt/AFfQfxe/aE+C/hHwr+y7N8Q9F1bWNct/FlnoTaPp/h/WrDULyZ9VjsniuJbaK1+WMSx3BkYFAEVQ2FGTnOhpfxb/AGTdY8QeFvCmk/GL4HQeIfFl/qOiaRbx+J/FWq3Sy6c0lpcSx6fos1w1s8TGPzGWJkj3q3DAgEge+UUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABX5i/8FUP2iNa8UfHr4YfAjS/Ezad4B+FepPrfja80eJw9xaaBczRW/h6O7kkyvnvF5erNFGu5Ys6hFuwvxEggdKP2r/jd8HP2v8AQvir4e8G2HjHwPdN8PLxL3UtZt42fw3rU88ccmqyWWL7NHZecmCsxAXykKsEUqrNk7hNFmyB+L37D3wX/wCJp+0d8NPE0UD29joFveePNSUhWggtBYTW6yA4K7tT1G1DH+5ZmFfvYW6VlT6fa6lYXeh6rZWt/Y3dlc6deafew+ZHNb3CNHLE6A9HVlKk9iODVy9sp5LpLqBbe4i+eJrq1ZQVE0e7Y7jHLoRvBz8hRgCr7hgriqelSh3HuKWopc2Vfy1eXFBZwQOixOLfyuJzHJCwCtGGkDZUYYk5BbhiGRUK9abxV+b5PX9Lrb/t3yO6GtrBHoWt3dvOYbe/aFrW+srlJN7xo8hLxMqllJEW4Ai3YFN7FZMEaYxcNjBXJGTwD+FfInx+stLh/aX+FXhbxT4p0fULrxheX/gO31mCZb
